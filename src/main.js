@@ -1,4 +1,24 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp, h } from 'vue'
 
-createApp(App).mount('#app')
+import Home from './pages/Home.vue'
+
+const routes = {
+  '/': Home,
+}
+
+const SimpleRouter = {
+  data: () => ({
+    currentRoute: window.location.pathname
+  }),
+  computed: {
+    CurrentComponent() {
+      return routes[this.currentRoute] || Error
+    },
+  },
+
+  render() {
+    return h(this.CurrentComponent)
+  }
+}
+
+createApp(SimpleRouter).mount('#app')  
