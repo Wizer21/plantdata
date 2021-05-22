@@ -1,9 +1,11 @@
 import { createApp, h } from 'vue'
 
 import Home from './pages/Home.vue'
+import Plants from './pages/Plants.vue'
 
 const routes = {
   '/': Home,
+  '/plants': Plants
 }
 
 const SimpleRouter = {
@@ -21,4 +23,4 @@ const SimpleRouter = {
   }
 }
 
-createApp(SimpleRouter).mount('#app')  
+createApp(SimpleRouter).mount('#app')
