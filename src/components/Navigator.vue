@@ -8,8 +8,11 @@
     <div id="panel">          
       <nav id="panelNavigator">
         <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
-        <router-link to="/plants" class="navigationButton" @click="togglePanel">PLants</router-link>
+        <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
       </nav>
+      <div id="panelLogin">
+        <div id="googleButton" class="g-signin2" data-onsuccess="onSignIn" ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,7 +37,17 @@ export default {
         this.isPanelOpen = true   
         panel.style.transform = "translateY(0vh)"
       }
+    },
+    onSignIn(googleUser){
+      console.log("IN");
+      console.log(JSON.stringify(googleUser.getBasicProfile()))
     }
+  },
+  mounted(){    
+    const googleButton =  document.getElementById('googleButton')
+    googleButton.addEventListener('call', event => {
+      console.log("received call !", event);
+    })
   }
 }
 </script>
@@ -68,14 +81,24 @@ export default {
 
   height: 100vh;
   width: 100vw;
-  background-color: rgb(165, 42, 42, 0.5);
+  background-color: rgb(165, 42, 42);
 
   transform: translateY(-100vh);
   transition-duration: 500ms;
 }
 #panelNavigator
 {
-  height: 100%;
+  height: 70%;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+#panelLogin
+{
+  height: 30%;
   width: 100%;
 
   display: flex;
