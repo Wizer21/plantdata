@@ -12,7 +12,25 @@
           {{ plant.description }}
         </p>
         <p>
-          {{ plant.difficulty }}
+          Rarity: {{ plant.rarity }}
+        </p>
+        <p>
+          Difficulty: {{ plant.difficulty }}
+        </p>
+        <p>
+          Luminosity: {{ plant.requiredluminosity }}
+        </p>
+        <p>
+          Moisten: {{ plant.moisten }}
+        </p>
+        <p>
+          Max Height: {{ plant.maxheight }} m
+        </p>
+        <p>
+          Min heat: {{ plant.minheat }} c°
+        </p>
+        <p>
+          Likes: {{ plant.likes }}
         </p>
       </div>
     </div>
@@ -31,6 +49,7 @@ export default {
   },
   methods: {
     applyPlant(plant){
+      console.log(plant);
       this.plant = plant
     }
   },
@@ -63,6 +82,7 @@ export default {
 #plantTextHolder
 {
   font-size: 2em;
+  padding: 5%;
   
   height: 100%;
   width: 40%;
