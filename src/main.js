@@ -1,26 +1,35 @@
-import { createApp, h } from 'vue'
+//import { createApp, h } from 'vue'
+
+import { createApp } from 'vue'
+import { createWebHistory, createRouter } from "vue-router";
 
 import Home from './pages/Home.vue'
 import Plants from './pages/Plants.vue'
+import PlantPage from './pages/PlantPage.vue'
+import App from './App.vue'
 
-const routes = {
-  '/': Home,
-  '/plants': Plants
-}
-
-const SimpleRouter = {
-  data: () => ({
-    currentRoute: window.location.pathname
-  }),
-  computed: {
-    CurrentComponent() {
-      return routes[this.currentRoute] || Error
-    },
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
   },
+  {
+    path: '/plants',
+    name: 'Plants',
+    component: Plants,
+  },
+  {
+    path: '/plant/:id',
+    name: 'Plant',
+    component: PlantPage,
+  },
+]
 
-  render() {
-    return h(this.CurrentComponent)
-  }
-}
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routes,
+})
 
-createApp(SimpleRouter).mount('#app')
+
+createApp(App).use(router).mount('#app')

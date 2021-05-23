@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navigator />
     <h1 id="test">
       Coucou
     </h1>
@@ -8,11 +7,9 @@
 </template>
 
 <script>
-import Navigator from '../components/Navigator.vue'
 
 export default {
-  name: 'Home',
-  components: { Navigator }
+  name: 'Home'
 }
 </script>
 

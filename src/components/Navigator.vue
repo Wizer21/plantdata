@@ -5,17 +5,11 @@
         B
       </p>
     </div>
-    <div id="panel">
-      <a href="./">
-        <p class="navigationButton">
-          Home
-        </p>
-      </a>
-      <a href="./plants">
-        <p class="navigationButton">
-          Plants
-        </p>
-      </a>
+    <div id="panel">          
+      <nav>
+        <router-link to="/" class="navigationButton">Home</router-link>
+        <router-link to="/plants" class="navigationButton">PLants</router-link>
+      </nav>
     </div>
   </div>
 </template>
@@ -51,14 +45,23 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: 2;
+  
+  pointer-events: none;
 }
 #toggleNavigationButton
 {
   position: absolute;
   z-index: 2;
   cursor: pointer;  
+  pointer-events: all;
   
   margin: 1vh;
+}
+.navigationButton
+{
+  cursor: pointer;  
+  pointer-events: all;
 }
 #panel
 {

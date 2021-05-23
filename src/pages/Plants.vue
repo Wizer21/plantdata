@@ -1,28 +1,21 @@
 <template>
-  <Navigator />
   <div>
     PLANTS !
   </div>
-  <div v-for='plant of plantList' :key="plant.id">
-    <p>
-      {{ plant.name }}
-    </p>
-    <p>
-      {{ plant.description }}
-    </p>
-    <p>
-      {{ plant.difficulty }}
-    </p>
+  <div id="plantList">
+    <template v-for='plant of plantList' :key="plant.id">
+      <PlantCard :plant="plant"/>
+    </template>
   </div>
 </template>
 
 <script>
-import Navigator from '../components/Navigator.vue'
+import PlantCard from '../components/PlantCard.vue'
 import { getPlantList } from '../requester.js'
 
 export default {
   name: "Plants",
-  components: { Navigator },
+  components: { PlantCard },
   data(){
     return {
       plantList: []
@@ -40,5 +33,9 @@ export default {
 </script>
 
 <style scoped>
-
+#plantList
+{
+  display: flex;
+  
+}
 </style>

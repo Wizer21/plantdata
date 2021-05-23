@@ -8,9 +8,7 @@ function request(method, url) {
   })
 }
     
-export function getPlantList(callback){
-  console.log("in");
-  
+export function getPlantList(callback){  
   request('GET', `https://localhost/wp-site/wp-json/api/plant`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
