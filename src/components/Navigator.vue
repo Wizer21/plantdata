@@ -6,9 +6,9 @@
       </p>
     </div>
     <div id="panel">          
-      <nav>
-        <router-link to="/" class="navigationButton">Home</router-link>
-        <router-link to="/plants" class="navigationButton">PLants</router-link>
+      <nav id="panelNavigator">
+        <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
+        <router-link to="/plants" class="navigationButton" @click="togglePanel">PLants</router-link>
       </nav>
     </div>
   </div>
@@ -45,8 +45,7 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 2;
-  
+
   pointer-events: none;
 }
 #toggleNavigationButton
@@ -61,11 +60,11 @@ export default {
 .navigationButton
 {
   cursor: pointer;  
-  pointer-events: all;
 }
 #panel
 {
   position: relative;
+  pointer-events: all;
 
   height: 100vh;
   width: 100vw;
@@ -73,9 +72,14 @@ export default {
 
   transform: translateY(-100vh);
   transition-duration: 500ms;
+}
+#panelNavigator
+{
+  height: 100%;
+  width: 100%;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
 }

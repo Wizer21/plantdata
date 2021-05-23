@@ -14,3 +14,10 @@ export function getPlantList(callback){
     callback(JSON.parse(e.target.response))
   }) 
 }
+
+export function getOnePlant(callback, id){  
+  request('GET', `https://localhost/wp-site/wp-json/api/plant/${id}`)
+  .then(function (e) {
+    callback(JSON.parse(e.target.response))
+  }) 
+}

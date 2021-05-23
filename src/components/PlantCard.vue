@@ -16,7 +16,6 @@
             <p>
               {{ plant.difficulty }}
             </p>
-
           </div>
         </div>
       </div>

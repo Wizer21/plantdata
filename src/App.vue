@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Navigator />
-    <router-view/>  
+    <Navigator id="navigator"/>
+    <router-view id="views"/>  
   </div>
 </template>
 
@@ -15,4 +15,13 @@ export default {
 </script>
 
 <style>
+#navigator
+{
+  z-index: 2;
+}
+#views
+{
+  position: relative;
+  z-index: 1;
+}
 </style>
