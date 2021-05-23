@@ -1,10 +1,10 @@
 <template>
-  <div>
-    PLANTS !
+  <div id="plantSearchPanel">
+    <input id="searchBar" type="text" :oninput="updateSearchInput">    
   </div>
   <div id="plantList">
     <template v-for='plant of plantList' :key="plant.id">
-      <PlantCard :plant="plant"/>
+      <PlantCard v-if="testSearchInput(plant.name)" :plant="plant"/>
     </template>
   </div>
 </template>
@@ -18,12 +18,28 @@ export default {
   components: { PlantCard },
   data(){
     return {
-      plantList: []
+      plantList: [],
+      searchInput: null
     }
   },
   methods: {
     applyPlantList(plantList){
       this.plantList = plantList
+    },
+    updateSearchInput(){  
+      this.searchInput = document.getElementById('searchBar').value
+    },
+    testSearchInput(plantName){
+      if (!this.searchInput){
+        return true
+      }
+      if (plantName.toLowerCase().indexOf(this.searchInput.toLowerCase()) !== -1){
+        return true
+      }
+      else
+      {
+        return false
+      }      
     },
   },
   mounted(){
@@ -35,7 +51,14 @@ export default {
 <style scoped>
 #plantList
 {
+  display: flex;  
+}
+#plantSearchPanel
+{
+  height: 8vh;
+  width: 100vw;
+  background-color: blueviolet;
+
   display: flex;
-  
 }
 </style>
