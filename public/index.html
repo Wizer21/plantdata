@@ -5,18 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="google-signin-client_id" content="48805749247-rbqk5mieetpavf8uh72ui67c9mb0fn0s.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>Plantz</title>
   </head>
   <body>
     <div id="app"></div>
   </body>
   <script>    
-    googleButton = document.getElementById('googleButton')
+    const googleButton = document.getElementById('googleButton')
 
     function onSignIn(googleUser){
       googleButton.dispatchEvent(new CustomEvent("call", {'detail': googleUser.getBasicProfile()}))
-      //console.log(JSON.stringify(googleUser.getBasicProfile()))
     }
   </script>
   <style>    
@@ -37,7 +35,6 @@
       {
         position: relative;
         overflow: hidden;
-        back
       }
       a
       {

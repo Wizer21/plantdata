@@ -1,5 +1,4 @@
-//import { createApp, h } from 'vue'
-
+import store from './store'
 import { createApp } from 'vue'
 import { createWebHistory, createRouter } from "vue-router";
 
@@ -39,4 +38,4 @@ const router = createRouter({
 })
 
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(store).mount('#app')
