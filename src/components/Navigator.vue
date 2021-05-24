@@ -12,9 +12,7 @@
       </nav>
       <div id="panelLogin">
         <template v-if="getStore.logged">
-          <button>
-            {{ getStore.user.username }}
-          </button>
+          <router-link :to="userProfilePath" class="navigationButton" @click="togglePanel">{{ getStore.user.username }}</router-link>            
           <button @click="logout">
             Logout
           </button>
@@ -39,6 +37,9 @@ export default {
     getStore(){
       return this.$store.state
     },
+    userProfilePath(){
+      return `/userprofile/${this.$store.state.user.id}`
+    }
   },
   methods: {
     togglePanel(){

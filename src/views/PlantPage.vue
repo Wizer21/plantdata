@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="plant" id="plantPage">
+  <div id="plantPage">
+    <template v-if="plant">
       <div id="plantImageHolder">
         <img :src="plant.image.url">
       </div>
@@ -29,32 +29,78 @@
         <p>
           Min heat: {{ plant.minheat }} c°
         </p>
-        <p>
-          Likes: {{ plant.likes }}
-        </p>
+        <template v-if="isLogged">
+          <p id="likeButton" @click="toggleLike">
+            <template v-if="isLiked">
+              Likes: {{ plant.likes }} liked
+            </template>
+            <template v-else>
+              Likes: {{ plant.likes }} Not liked
+            </template>
+          </p>
+        </template>
+        <template v-else>
+          <p>
+            Likes: {{ plant.likes }}
+          </p>
+        </template>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
-import { getOnePlant } from '../requester.js'
+import { getOnePost, updateUserAddFavorite, updateUserDeleteFavorite } from '../requester.js'
 
 export default {
   name: 'PlantPage',
   data(){
     return{
-      plant: null
+      plant: null,
+      isLiked: false
+    }
+  },
+  computed: {
+    isLogged(){
+      return this.$store.state.logged
     }
   },
   methods: {
     applyPlant(plant){
-      console.log(plant);
       this.plant = plant
+      
+      // If logged -> Check if is liked
+      if(this.$store.state.logged){
+        this.isLiked = this.$store.state.user.favorites.includes(this.plant.id)
+      }
+    },
+    toggleLike(){
+      if (this.isLiked){
+        this.isLiked = false
+        this.plant.likes -= 1
+        
+        // Search and remove the plant from favorite list
+        const array = this.$store.state.user.favorites
+        for( var i = 0; i < array.length; i++){     
+          if ( array[i] === this.plant.id) {     
+            this.$store.state.user.favorites.splice(i, 1)
+          }        
+        }
+
+        updateUserDeleteFavorite(this.$store.state.user.id, this.plant.id)
+      }
+      else{
+        this.isLiked = true
+        this.plant.likes += 1
+
+        this.$store.state.user.favorites.push(this.plant.id)
+        updateUserAddFavorite(this.$store.state.user.id, this.plant.id)
+      }   
+      console.log(this.$store.state.user.favorites)
     }
   },
   mounted(){
-    getOnePlant(this.applyPlant, this.$route.params.id)
+    getOnePost(this.applyPlant, this.$route.params.id)
   }
 }
 </script>
@@ -81,11 +127,16 @@ export default {
 }
 #plantTextHolder
 {
-  font-size: 2em;
+  font-size: 1.5em;
   padding: 5%;
   
   height: 100%;
   width: 40%;
+}
+#likeButton
+{
+  color: rgb(238, 49, 49);
+  cursor: pointer;
 }
 @media screen and (max-width: 800px) {  
   #plantPage

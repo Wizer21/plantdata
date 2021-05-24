@@ -8,28 +8,29 @@ import Home from './views/Home.vue'
 import Plants from './views/Plants.vue'
 import PlantPage from './views/PlantPage.vue'
 import Login from './views/Login.vue'
+import UserProfile from './views/UserProfile.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Home,
   },
   {
     path: '/plants',
-    name: 'Plants',
     component: Plants,
   },
   {
     path: '/plant/:id',
-    name: 'Plant',
     component: PlantPage,
   },
   {
     path: '/login',
-    name: 'Login',
     component: Login,
   },
+  {
+    path: '/userprofile/:id',
+    component: UserProfile
+  }
 ]
 
 const router = createRouter({
