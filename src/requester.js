@@ -21,3 +21,10 @@ export function getOnePlant(callback, id){
     callback(JSON.parse(e.target.response))
   }) 
 }
+
+export function loginOrCreateUser(callback, googleKey, username, imageUrl){  
+  request('GET', `https://localhost/wp-site/wp-json/api/user/${googleKey}/${username}?imageurl=${imageUrl}`)
+  .then(function (e) {
+    callback(JSON.parse(e.target.response))
+  }) 
+}

@@ -3,10 +3,12 @@
 import { createApp } from 'vue'
 import { createWebHistory, createRouter } from "vue-router";
 
-import Home from './pages/Home.vue'
-import Plants from './pages/Plants.vue'
-import PlantPage from './pages/PlantPage.vue'
 import App from './App.vue'
+
+import Home from './views/Home.vue'
+import Plants from './views/Plants.vue'
+import PlantPage from './views/PlantPage.vue'
+import Login from './views/Login.vue'
 
 const routes = [
   {
@@ -23,6 +25,11 @@ const routes = [
     path: '/plant/:id',
     name: 'Plant',
     component: PlantPage,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
 ]
 

@@ -11,7 +11,7 @@
         <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
       </nav>
       <div id="panelLogin">
-        <div id="googleButton" class="g-signin2" data-onsuccess="onSignIn" ></div>
+        <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
       </div>
     </div>
   </div>
@@ -37,17 +37,7 @@ export default {
         this.isPanelOpen = true   
         panel.style.transform = "translateY(0vh)"
       }
-    },
-    onSignIn(googleUser){
-      console.log("IN");
-      console.log(JSON.stringify(googleUser.getBasicProfile()))
     }
-  },
-  mounted(){    
-    const googleButton =  document.getElementById('googleButton')
-    googleButton.addEventListener('call', event => {
-      console.log("received call !", event);
-    })
   }
 }
 </script>
