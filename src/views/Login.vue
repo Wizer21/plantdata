@@ -2,8 +2,8 @@
   <div id="loginPage">
     <div>
       <p>LOGIN PAGE</p>
-    </div>
       <div id="googleButton" class="g-signin2" data-onsuccess="onSignIn" ></div>
+    </div>
   </div>
 </template>
 
@@ -25,7 +25,6 @@ export default {
     // Google Button Event 
     googleButton.addEventListener('call', event => {
       loginOrCreateUser(this.loginResponse, event.detail.NT, event.detail.xV, event.detail.uK)
-      console.log("received call !", event);
     })
     
     // Load Google script 

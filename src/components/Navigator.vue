@@ -11,7 +11,17 @@
         <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
       </nav>
       <div id="panelLogin">
-        <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
+        <template v-if="getStore.logged">
+          <button>
+            {{ getStore.user.username }}
+          </button>
+          <button @click="logout">
+            Logout
+          </button>
+        </template>
+        <template v-else>
+          <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
+        </template>
       </div>
     </div>
   </div>
@@ -22,8 +32,13 @@ export default {
   name: 'Navigator',
   data(){
     return {
-      isPanelOpen: false
+      isPanelOpen: false,
     }
+  },
+  computed: {
+    getStore(){
+      return this.$store.state
+    },
   },
   methods: {
     togglePanel(){
@@ -37,6 +52,9 @@ export default {
         this.isPanelOpen = true   
         panel.style.transform = "translateY(0vh)"
       }
+    },
+    logout(){
+      this.$store.commit('logout')
     }
   }
 }

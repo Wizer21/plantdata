@@ -11,10 +11,8 @@
     <div id="app"></div>
   </body>
   <script>    
-    const googleButton = document.getElementById('googleButton')
-
     function onSignIn(googleUser){
-      googleButton.dispatchEvent(new CustomEvent("call", {'detail': googleUser.getBasicProfile()}))
+      document.getElementById('googleButton').dispatchEvent(new CustomEvent("call", {'detail': googleUser.getBasicProfile()}))
     }
   </script>
   <style>    
