@@ -1,0 +1,21 @@
+{
+  "difficulty": [
+    "Beginner", 
+    "Advanced", 
+    "Expert"],
+  "rarity": [
+    "Avaible in every stores", 
+    "Can be find by browsing some stores", 
+    "Not avaible in every country"],
+  "moisten": [
+    "Never moisten",
+    "Moisten around three time a week",
+    "Moisten every days",
+    "Live with roots in water",
+    "Live underwater"],
+  "requiredluminosity": [
+    "Appreciates the darkness",
+    "Bright without direct light",
+    "Full sun"
+  ]
+}

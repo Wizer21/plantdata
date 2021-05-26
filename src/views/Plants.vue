@@ -1,6 +1,7 @@
 <template>
   <div id="plantSearchPanel">
     <input id="searchBar" type="text" :oninput="updateSearchInput">    
+    <router-link v-if="isLogged" to="/createplant" >Create Plant</router-link>
   </div>
   <div id="plantList">
     <template v-for='plant of plantList' :key="plant.id">
@@ -20,6 +21,11 @@ export default {
     return {
       plantList: [],
       searchInput: null
+    }
+  },
+  computed: {
+    isLogged(){
+      return this.$store.state.logged
     }
   },
   methods: {

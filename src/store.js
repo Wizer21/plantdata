@@ -17,7 +17,6 @@ const store = createStore({
       login(state, payload) {
         state.logged = true
         state.user = payload.user
-        console.log(state.user)
       },
       logout(state) {       
         state.logged = false

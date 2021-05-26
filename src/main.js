@@ -9,6 +9,8 @@ import Plants from './views/Plants.vue'
 import PlantPage from './views/PlantPage.vue'
 import Login from './views/Login.vue'
 import UserProfile from './views/UserProfile.vue'
+import Admin from './views/Admin.vue'
+import CreatePlant from './views/CreatePlant.vue'
 
 const routes = [
   {
@@ -30,6 +32,14 @@ const routes = [
   {
     path: '/userprofile/:id',
     component: UserProfile
+  },
+  {
+    path: '/createplant',
+    component: CreatePlant
+  },
+  {
+    path: '/admin',
+    component: Admin
   }
 ]
 
