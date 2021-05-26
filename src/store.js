@@ -10,17 +10,26 @@ const store = createStore({
     state () {
       return {
         logged: false,
-        user: null,
+        admin: false,
+        user: null
       }
     },
     mutations: {
       login(state, payload) {
         state.logged = true
         state.user = payload.user
+        
+        if (payload.user.admin == 1){
+          state.admin = true  
+        }
+        else{          
+          state.admin = false  
+        }
       },
       logout(state) {       
         state.logged = false
-        state.user = null
+        state.admin = false     
+        state.user = null   
       }
     },    
     plugins: [vuexPersist.plugin],

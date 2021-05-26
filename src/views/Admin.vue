@@ -1,30 +1,47 @@
 <template>
-  <div>
+  <div v-if="isAdmin">
     Admin
+    <div id="verifyList">
+      <VerifyCard v-for="plant of verifyStack" :key="plant.id" :plant="plant"/>
+    </div>
   </div>
 </template>
 
 <script>
-import { getOnePost } from '../requester.js'
+import { getVerifyStack } from '../requester.js'
+import VerifyCard from '../components/VerifyCard.vue'
 
 export default {
   name: 'Admin',
+  components: { VerifyCard },
   data(){
     return {
-      plant: null
+      verifyStack: null
+    }
+  },
+  computed: {
+    isAdmin(){
+      return this.$store.state.admin
     }
   },
   methods: {
-    applyPlant(response){
-      this.plant = response
+    applyStack(response){
+      this.verifyStack = response
     }
   },
   mounted(){
-    getOnePost(this.applyPlant, this.$route.params.id)
+    getVerifyStack(this.applyStack)
   }
 }
 </script>
 
 <style>
+#verifyList
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
 
 </style>

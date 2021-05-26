@@ -6,10 +6,8 @@
       </p>
     </div>
     <div id="panel">          
-      <nav id="panelNavigator">
-        <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
-        <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
-      </nav>
+      <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
+      <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
       <div id="panelLogin">
         <template v-if="getStore.logged">
           <router-link :to="userProfilePath" class="navigationButton" @click="togglePanel">{{ getStore.user.username }}</router-link>            
@@ -19,6 +17,9 @@
         </template>
         <template v-else>
           <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
+        </template>
+        <template v-if="isAdmin">
+          <router-link to="/admin" class="navigationButton" @click="togglePanel">Admin</router-link>
         </template>
       </div>
     </div>
@@ -39,6 +40,9 @@ export default {
     },
     userProfilePath(){
       return `/userprofile/${this.$store.state.user.id}`
+    },
+    isAdmin(){
+      return this.$store.state.admin
     }
   },
   methods: {
@@ -95,6 +99,11 @@ export default {
 
   transform: translateY(-100vh);
   transition-duration: 500ms;
+
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
 }
 #panelNavigator
 {

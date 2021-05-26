@@ -26,6 +26,13 @@ export function getPlantList(callback){
   }) 
 }
 
+export function getVerifyStack(callback){  
+  request('GET', `https://localhost/wp-site/wp-json/api/verifystack`)
+  .then(function (e) {
+    callback(JSON.parse(e.target.response))
+  }) 
+}
+
 export function getOnePost(callback, id){  
   request('GET', `https://localhost/wp-site/wp-json/api/post/${id}`)
   .then(function (e) {
@@ -54,4 +61,12 @@ export function sendNewPlant(plantData){
   .then(function (e) {
     console.log(e);
   }) 
+}
+
+export function deletePost(postId){  
+  request('GET', `https://localhost/wp-site/wp-json/api/delete/${postId}`)
+}
+
+export function acceptPlant(postId){  
+  request('GET', `https://localhost/wp-site/wp-json/api/transferplant/${postId}`)
 }
