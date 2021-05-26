@@ -3,27 +3,17 @@
     <p>Name</p>  
     <input type="text" placeholder="Name" id="nameInput">
     <p>Description</p>  
-    <textarea placeholder="Description" id="descriptionInput"></textarea>  
-    <p>Rarity</p>  
-    <select id="rarityInput">
-      <option v-for="option of options.rarity" :key="option" :v-else="option">{{ option }}</option>
-    </select>
+    <textarea placeholder="What an awesome plant!" id="descriptionInput"></textarea>  
     <p>Difficulty</p>  
-    <select id="difficultyInput">
-      <option v-for="option of options.difficulty" :key="option" :v-else="option">{{ option }}</option>
-    </select>
+    <input type="text" placeholder="1/2/3" id="difficultyInput">
     <p>Luminosity</p>  
-    <select id="luminosityInput">
-      <option v-for="option of options.requiredluminosity" :key="option" :v-else="option">{{ option }}</option>
-    </select>
-    <p>Moisten</p>  
-    <select id="moistenInput">
-      <option v-for="option of options.moisten" :key="option" :v-else="option">{{ option }}</option>
-    </select>
+    <input type="text" placeholder="Bright, without direct light." id="luminosityInput">
+    <p>Fogging</p>  
+    <input type="text" placeholder="Mist every day" id="foggingInput">
     <p>Max Height</p>  
-    <input type="text" placeholder="Max Height" id="heightInput">
+    <input type="text" placeholder="2" id="heightInput">
     <p>Min heat</p>  
-    <input type="text" placeholder="Min heat" id="heatInput">
+    <input type="text" placeholder="22" id="heatInput">
     <p>Plant image</p>    
     <input type="file" accept="image/jpeg" id="imageInput">
     <button @click="submit" id="submitButton">
@@ -39,16 +29,14 @@ export default {
   name: 'CreatePlant',
   data(){
     return {
-      options: require('../assets/acfOptions.json'),
       newPlant: {
         name: "",
         description: "",
         maxheight: "",
         minheat: "",
-        rarity: "",
         difficulty: "",
         luminosity: "",
-        moisten: "",
+        fogging: "",
         image: "",
         creator: this.$store.state.user.googlekey
       },
@@ -62,7 +50,8 @@ export default {
   },
   methods: {
     submit(){
-      if (this.$store.state.logged){
+      console.log(this.newPlant);
+      if (this.$store.state.logged && this.isPlantReady){
         sendNewPlant(this.newPlant)
       }    
     }    
@@ -70,59 +59,26 @@ export default {
   mounted(){    
     const local = this
 
-    this.newPlant.rarity = this.options.rarity[0]
-    this.newPlant.difficulty = this.options.difficulty[0]
-    this.newPlant.luminosity = this.options.requiredluminosity[0]
-    this.newPlant.moisten = this.options.moisten[0]
-
     const nameInput = document.getElementById('nameInput')
     const descriptionInput = document.getElementById('descriptionInput')
     const heightInput = document.getElementById('heightInput')
     const heatInput = document.getElementById('heatInput')
-    const rarityInput = document.getElementById('rarityInput')
     const difficultyInput = document.getElementById('difficultyInput')
     const luminosityInput = document.getElementById('luminosityInput')
-    const moistenInput = document.getElementById('moistenInput')
+    const foggingInput = document.getElementById('foggingInput')
     const image = document.getElementById('imageInput')
-    const reader  = new FileReader();   
-
     const submitButton = document.getElementById('submitButton')
 
-    // Text
-    nameInput.addEventListener('keyup', () => {
-      this.newPlant.name = nameInput.value
-      checkPlantReady()
-    })
-    descriptionInput.addEventListener('keyup', () => {
-      this.newPlant.description = descriptionInput.value
-      checkPlantReady()
-    })
-    heightInput.addEventListener('keyup', () => {
-      this.newPlant.maxheight = heightInput.value
-      checkPlantReady()
-    })
-    heatInput.addEventListener('keyup', () => {
-      this.newPlant.minheat = heatInput.value
-      checkPlantReady()
-    })
+    const reader  = new FileReader();   
 
-    // Box
-    rarityInput.addEventListener('change', () => {
-      this.newPlant.rarity = rarityInput.value
-      checkPlantReady()
-    })
-    difficultyInput.addEventListener('change', () => {
-      this.newPlant.luminosity = difficultyInput.value
-      checkPlantReady()
-    })
-    luminosityInput.addEventListener('change', () => {
-      this.newPlant.rarity = luminosityInput.value
-      checkPlantReady()
-    })
-    moistenInput.addEventListener('change', () => {
-      this.newPlant.moisten = moistenInput.value
-      checkPlantReady()
-    })
+    const dataList = ["name", "description", "maxheight", "minheat", "difficulty", "luminosity", "fogging"]
+    const inputList = [nameInput, descriptionInput, heightInput, heatInput, difficultyInput, luminosityInput, foggingInput]
+    for (let i = 0; i < inputList.length; i++){
+      inputList[i].addEventListener('keyup', () => {
+        this.newPlant[dataList[i]] = inputList[i].value
+        checkPlantReady()
+      })
+    }
 
     // Image
     image.addEventListener('change', () => {

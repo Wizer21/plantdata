@@ -49,6 +49,7 @@ export function updateUserDeleteFavorite(userId, plantId){
 }
 
 export function sendNewPlant(plantData){  
+  console.log(plantData);
   requestObject('https://localhost/wp-site/wp-json/api/newplant', plantData)
   .then(function (e) {
     console.log(e);

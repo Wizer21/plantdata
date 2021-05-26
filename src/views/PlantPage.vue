@@ -2,7 +2,7 @@
   <div id="plantPage">
     <template v-if="plant">
       <div id="plantImageHolder">
-        <img :src="plant.image.url">
+        <img :src="plant.image">
       </div>
       <div id="plantTextHolder">
         <p>
@@ -12,16 +12,13 @@
           {{ plant.description }}
         </p>
         <p>
-          Rarity: {{ plant.rarity }}
-        </p>
-        <p>
           Difficulty: {{ plant.difficulty }}
         </p>
         <p>
-          Luminosity: {{ plant.requiredluminosity }}
+          Luminosity: {{ plant.luminosity }}
         </p>
         <p>
-          Moisten: {{ plant.moisten }}
+          Fogging: {{ plant.fogging }}
         </p>
         <p>
           Max Height: {{ plant.maxheight }} m

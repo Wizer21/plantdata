@@ -4,7 +4,7 @@
       <div id="cardBody" @click="openPlant">
         <div id="cardContent">
           <div id="cardImagePart">
-            <img :src="plant.image.url">
+            <img :src="plant.image"/>
           </div>
           <div id="cardTextPart">
             <p>
