@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { sendNewPlant } from '../requester.js'
+
 export default {
   name: 'CreatePlant',
   data(){
@@ -47,7 +49,8 @@ export default {
         difficulty: "",
         luminosity: "",
         moisten: "",
-        image: ""
+        image: "",
+        creator: this.$store.state.user.googlekey
       },
       isPlantReady: false
     }
@@ -60,7 +63,7 @@ export default {
   methods: {
     submit(){
       if (this.$store.state.logged){
-        
+        sendNewPlant(this.newPlant)
       }    
     }    
   },
@@ -134,7 +137,6 @@ export default {
 
     function checkPlantReady(){
       for(let data in local.newPlant){
-        console.log(local.newPlant[data]);
         if(local.newPlant[data] == ""){
           submitButton.style.cursor = "unset"
           submitButton.style.color = "red"

@@ -1,10 +1,21 @@
 function request(method, url) {
   return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url);
-    xhr.onload = resolve;
-    xhr.onerror = reject;
-    xhr.send();
+    var xhr = new XMLHttpRequest()
+    xhr.open(method, url)
+    xhr.onload = resolve
+    xhr.onerror = reject
+    xhr.send()
+  })
+}
+
+function requestObject(url, object) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST', url)
+    xhr.setRequestHeader("Content-type", "application/json")
+    xhr.onload = resolve
+    xhr.onerror = reject
+    xhr.send(JSON.stringify(object))
   })
 }
 
@@ -35,4 +46,11 @@ export function updateUserAddFavorite(userId, plantId){
 
 export function updateUserDeleteFavorite(userId, plantId){  
   request('GET', `https://localhost/wp-site/wp-json/api/delfav/${userId}/${plantId}`)
+}
+
+export function sendNewPlant(plantData){  
+  requestObject('https://localhost/wp-site/wp-json/api/newplant', plantData)
+  .then(function (e) {
+    console.log(e);
+  }) 
 }
