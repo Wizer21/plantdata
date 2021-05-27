@@ -25,6 +25,8 @@ const store = createStore({
         else{          
           state.admin = false  
         }
+
+        console.log(state.user);
       },
       logout(state) {       
         state.logged = false
