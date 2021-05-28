@@ -1,25 +1,31 @@
 <template>
   <div id="navigator">
     <div id="toggleNavigationButton" @click="togglePanel">
-      <p>
-        B
-      </p>
+      <div id="menuButton">
+        <div id="menuBar1"></div>
+        <div id="menuBar2"></div>
+        <div id="menuBar3"></div>
+      </div>
+      <div id="crossButton">
+        <div id="crossBar1"></div>
+        <div id="crossBar2"></div>
+      </div>
     </div>
     <div id="panel">          
-      <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
-      <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
+      <div id="panelNavigator">
+        <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
+        <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
+        <router-link v-if="isAdmin" to="/admin" class="navigationButton" @click="togglePanel">Admin</router-link>
+      </div>
       <div id="panelLogin">
         <template v-if="getStore.logged">
           <router-link :to="userProfilePath" class="navigationButton" @click="togglePanel">{{ getStore.user.username }}</router-link>            
-          <button @click="logout">
+          <p @click="logout" class="navigationButton">
             Logout
-          </button>
+          </p>
         </template>
         <template v-else>
           <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
-        </template>
-        <template v-if="isAdmin">
-          <router-link to="/admin" class="navigationButton" @click="togglePanel">Admin</router-link>
         </template>
       </div>
     </div>
@@ -51,12 +57,46 @@ export default {
 
       if (this.isPanelOpen){
         this.isPanelOpen = false
-        panel.style.transform = "translateY(-100vh)"       
+        panel.style.transform = "translateY(-100vh)"   
+
+        this.iconToMenu()  
       }
       else{
         this.isPanelOpen = true   
         panel.style.transform = "translateY(0vh)"
+  
+        this.iconToCross()    
       }
+    },
+    iconToCross(){
+      // Close Menu
+      const menuBars = [document.getElementById('menuBar1'), document.getElementById('menuBar2'), document.getElementById('menuBar3')]
+      for (let bar of menuBars){
+        bar.style.clipPath = "polygon(0 0, 0 0, 0 100%, 0% 100%)"
+      }      
+      
+      // Open Cross
+      setTimeout(() => {
+      const crossBars = [document.getElementById('crossBar1'), document.getElementById('crossBar2')]
+      for (let bar of crossBars){
+        bar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+      }
+      }, 200)
+    },
+    iconToMenu(){
+      // Close Cross
+      const crossBars = [document.getElementById('crossBar1'), document.getElementById('crossBar2')]
+      for (let bar of crossBars){
+        bar.style.clipPath = "polygon(0 0, 0 0, 0 100%, 0% 100%)"
+      }
+
+      // Open Menu
+      setTimeout(() => {
+        const menuBars = [document.getElementById('menuBar1'), document.getElementById('menuBar2'), document.getElementById('menuBar3')]
+        for (let bar of menuBars){
+          bar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+        }
+      }, 200)
     },
     logout(){
       this.$store.commit('logout')
@@ -75,18 +115,35 @@ export default {
 
   pointer-events: none;
 }
-#toggleNavigationButton
-{
-  position: absolute;
-  z-index: 2;
-  cursor: pointer;  
-  pointer-events: all;
-  
-  margin: 1vh;
-}
 .navigationButton
 {
   cursor: pointer;  
+  font-size: 1.5em;
+  transition-duration: 500ms;
+  width: 3em;
+  text-align: center;
+}
+.navigationButton::after
+{
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 5em;
+  z-index: -1;
+
+  transform: translateX(-4em);
+  transition-duration: 400ms;
+
+  background-color: rgb(43, 43, 43);
+  clip-path: polygon(100% 0, 100% 1%, 100% 100%, 100% 100%);
+}
+.navigationButton:hover
+{
+  color: rgb(218, 216, 216);
+}
+.navigationButton:hover::after
+{
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 #panel
 {
@@ -95,13 +152,13 @@ export default {
 
   height: 100vh;
   width: 100vw;
-  background-color: rgb(165, 42, 42);
+  background-color: rgb(218, 216, 216);
 
   transform: translateY(-100vh);
   transition-duration: 500ms;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
@@ -115,14 +172,114 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+#panelNavigator *
+{
+  font-size: 4em;
+}
+#panelNavigator div
+{
+  width: fit-content;
+}
 #panelLogin
 {
   height: 30%;
   width: 100%;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+#panelLogin p
+{
+  margin: 2vh;
+}
+/* TOGGLE BUTTON */
+#toggleNavigationButton
+{
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;  
+  pointer-events: all;
+  transition-duration: 300ms;
+
+  height: 6vh;
+  width: 6vh;  
+  margin: 2vh;
+
+  border: 2px solid transparent;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(218, 216, 216);
+}
+#toggleNavigationButton:hover
+{
+  border: 2px solid rgb(43, 43, 43);
+}
+/* Menu */
+#menuButton
+{
+  position: absolute;
+  height: 60%;
+  width: 60%;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+#crossBar1,
+#crossBar2,
+#menuBar1,
+#menuBar2,
+#menuBar3
+{
+  position: relative;
+  height: 13%;
+  width: 100%;
+
+  transition-duration: 300ms;
+
+  background-color: rgb(43, 43, 43);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+  border-radius: 5px;
+}
+#crossBar1,
+#crossBar2{
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+}
+#menuBar1
+{
+  transition-delay: 200ms;
+}
+#menuBar2
+{
+  transition-delay: 100ms;
+}
+/* Cross */
+#crossButton
+{
+  position: absolute;
+  height: 80%;
+  width: 80%;
+
+  display: flex;
+  flex-direction: column;
+
+  transform: translateY(45%);
+}
+#crossBar1
+{
+  position: absolute;
+  transform: rotate(45deg);
+}
+#crossBar2
+{
+  transition-delay: 100ms;
+  position: absolute;
+  transform: rotate(-45deg);
 }
 </style>

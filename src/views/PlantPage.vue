@@ -41,13 +41,14 @@
             Likes: {{ plant.likes }}
           </p>
         </template>
+        <router-link :to="userPageLink" class="navigationButton">Posted by {{ plant.user.username }}</router-link>
       </div>
     </template>
   </div>
 </template>
 
 <script>
-import { getOnePost, updateUserAddFavorite, updateUserDeleteFavorite } from '../requester.js'
+import { getOnePlant, updateUserAddFavorite, updateUserDeleteFavorite } from '../requester.js'
 
 export default {
   name: 'PlantPage',
@@ -60,11 +61,16 @@ export default {
   computed: {
     isLogged(){
       return this.$store.state.logged
+    },
+    userPageLink(){
+      return `/userprofile/${this.plant.user.id}`
     }
   },
   methods: {
     applyPlant(plant){
       this.plant = plant
+
+      console.log(this.plant);
       
       // If logged -> Check if is liked
       if(this.$store.state.logged){
@@ -97,7 +103,7 @@ export default {
     }
   },
   mounted(){
-    getOnePost(this.applyPlant, this.$route.params.id)
+    getOnePlant(this.applyPlant, this.$route.params.id)
   }
 }
 </script>

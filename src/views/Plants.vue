@@ -58,6 +58,8 @@ export default {
 #plantList
 {
   display: flex;  
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #plantSearchPanel
 {

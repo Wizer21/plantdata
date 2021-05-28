@@ -7,6 +7,9 @@
       <p>
         {{ user.username }}
       </p>
+      <p>
+        Submissions {{ user.validatedpublications }}
+      </p>
     </template>
   </div>
 </template>
