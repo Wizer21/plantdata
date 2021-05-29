@@ -32,10 +32,6 @@ export default {
     return {
       url: `/plant/${this.plant.id}`
     }
-  },
-  mounted(){
-    const plantImage = document.getElementById('plantImage')
-    console.log(plantImage.clientWidth);
   }
 }
 </script>

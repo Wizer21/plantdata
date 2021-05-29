@@ -154,7 +154,8 @@ export default {
   z-index: -1;
 
   transform: translateX(-100%);
-  transition-duration: 300ms;
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
 
   background-color: rgb(43, 43, 43);
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);;

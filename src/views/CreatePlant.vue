@@ -20,6 +20,18 @@
       Submit  
     </button>
   </div>
+  <div v-else id="offlinePage">
+    <p>
+      This page is reserved to logged users.
+    </p>
+    <router-link to="/login" id="logginButton" @click="togglePanel">
+      <p>
+        Login
+      </p>
+      <div id="loginBackground">
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -38,7 +50,7 @@ export default {
         luminosity: "",
         fogging: "",
         image: "",
-        creator: this.$store.state.user.googlekey
+        creator: ""
       },
       isPlantReady: false
     }
@@ -55,7 +67,12 @@ export default {
       }    
     }    
   },
-  mounted(){    
+  mounted(){  
+    if (!this.$store.state.logged){
+      return
+    }
+    this.newPlant.creator = this.$store.state.user.googlekey
+    
     const local = this
 
     const nameInput = document.getElementById('nameInput')
@@ -124,5 +141,51 @@ export default {
 #createPlant p
 {
   margin-bottom: 0;
+}
+#offlinePage
+{
+  height: 100vh;
+  width: 100vw;
+  font-size: 1.5em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#logginButton
+{
+  border-radius: 4px;
+}
+#logginButton p
+{
+  position: relative;
+  z-index: 1;
+
+  transition-duration: 400ms;
+  margin: 0;
+  padding: 1vh;
+}
+#loginBackground
+{
+  position: relative;
+  height: 101%;
+  width: 101%;
+  z-index: 0;
+
+  top: -100%;
+
+  background-color: rgb(43, 43, 43);
+
+  transition-duration: 400ms;
+  clip-path: polygon(0 98%, 100% 98%, 100% 100%, 0 100%);
+}
+#logginButton:hover #loginBackground
+{
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+#logginButton:hover p
+{
+  color: rgb(218, 216, 216);
 }
 </style>
