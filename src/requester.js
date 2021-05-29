@@ -73,3 +73,10 @@ export function deletePost(postId){
 export function acceptPlant(postId){  
   request('GET', `https://localhost/wp-site/wp-json/api/transferplant/${postId}`)
 }
+
+export function getUsers(callback){  
+  request('GET', `https://localhost/wp-site/wp-json/api/user`)
+  .then(function (e) {
+    callback(JSON.parse(e.target.response))
+  })
+}

@@ -159,8 +159,6 @@ export default {
 
   background-color: rgb(43, 43, 43);
   clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);;
-  
-  border-radius: 4px;
 }
 .buttonHandler:hover::after
 {  
