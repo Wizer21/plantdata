@@ -16,5 +16,6 @@ export default {
 <style scoped>
 #test{
   height: 200vh;
+  background-color: black;
 }
 </style>

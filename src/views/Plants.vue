@@ -1,7 +1,11 @@
 <template>
   <div id="plantSearchPanel">
+    <router-link v-if="isLogged" to="/createplant" id="createPlantButton">
+      <p>
+        Create Plant
+      </p>
+    </router-link>
     <input id="searchBar" type="text" :oninput="updateSearchInput">    
-    <router-link v-if="isLogged" to="/createplant" >Create Plant</router-link>
   </div>
   <div id="plantList">
     <template v-for='plant of plantList' :key="plant.id">
@@ -65,8 +69,26 @@ export default {
 {
   height: 8vh;
   width: 100vw;
-  background-color: blueviolet;
 
   display: flex;
+  justify-content: flex-end;
+}
+#createPlantButton
+{
+  width: 20vh;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-left: 1px solid black;
+}
+#createPlantButton p
+{
+  margin: 0 10%;
+  
+  text-align: center;
+
+  font-size: 1.2em;
+  white-space: nowrap;
 }
 </style>

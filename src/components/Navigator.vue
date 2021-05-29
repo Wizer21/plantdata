@@ -13,19 +13,31 @@
     </div>
     <div id="panel">          
       <div id="panelNavigator">
-        <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
-        <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
-        <router-link v-if="isAdmin" to="/admin" class="navigationButton" @click="togglePanel">Admin</router-link>
+        <div class="buttonHandler">
+          <router-link to="/" class="navigationButton" @click="togglePanel">Home</router-link>
+        </div>
+        <div class="buttonHandler">
+          <router-link to="/plants" class="navigationButton" @click="togglePanel">Plants</router-link>
+        </div>
+        <div class="buttonHandler">
+          <router-link v-if="isAdmin" to="/admin" class="navigationButton" @click="togglePanel">Admin</router-link>
+        </div>
       </div>
       <div id="panelLogin">
         <template v-if="getStore.logged">
-          <router-link :to="userProfilePath" class="navigationButton" @click="togglePanel">{{ getStore.user.username }}</router-link>            
-          <p @click="logout" class="navigationButton">
-            Logout
-          </p>
+          <div class="buttonHandler">
+            <router-link :to="userProfilePath" class="navigationButton" @click="togglePanel">{{ getStore.user.username }}</router-link>   
+          </div>        
+          <div class="buttonHandler"> 
+            <span @click="logout" class="navigationButton">
+              Logout
+            </span>
+          </div>        
         </template>
         <template v-else>
-          <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
+          <div class="buttonHandler">
+            <router-link to="/login" class="navigationButton" @click="togglePanel">Login</router-link>
+          </div>        
         </template>
       </div>
     </div>
@@ -77,11 +89,11 @@ export default {
       
       // Open Cross
       setTimeout(() => {
-      const crossBars = [document.getElementById('crossBar1'), document.getElementById('crossBar2')]
-      for (let bar of crossBars){
-        bar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-      }
-      }, 200)
+        const crossBars = [document.getElementById('crossBar1'), document.getElementById('crossBar2')]
+        for (let bar of crossBars){
+          bar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+        }
+      }, 400)
     },
     iconToMenu(){
       // Close Cross
@@ -96,7 +108,7 @@ export default {
         for (let bar of menuBars){
           bar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
         }
-      }, 200)
+      }, 400)
     },
     logout(){
       this.$store.commit('logout')
@@ -118,32 +130,40 @@ export default {
 .navigationButton
 {
   cursor: pointer;  
-  font-size: 1.5em;
+  font-size: 4em;
   transition-duration: 500ms;
-  width: 3em;
-  text-align: center;
-}
-.navigationButton::after
-{
-  position: absolute;
-  content: "";
-  height: 1em;
-  width: 5em;
-  z-index: -1;
-
-  transform: translateX(-4em);
-  transition-duration: 400ms;
-
-  background-color: rgb(43, 43, 43);
-  clip-path: polygon(100% 0, 100% 1%, 100% 100%, 100% 100%);
+  padding: 0 1em;
+  margin: 0;
 }
 .navigationButton:hover
 {
   color: rgb(218, 216, 216);
 }
-.navigationButton:hover::after
+.buttonHandler
 {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  position: relative;
+  transition-duration: 400ms;
+}
+.buttonHandler::after
+{
+  position: absolute;
+  content: "";
+
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+
+  transform: translateX(-100%);
+  transition-duration: 300ms;
+
+  background-color: rgb(43, 43, 43);
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);;
+  
+  border-radius: 4px;
+}
+.buttonHandler:hover::after
+{  
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);;
 }
 #panel
 {
@@ -164,7 +184,7 @@ export default {
 }
 #panelNavigator
 {
-  height: 70%;
+  height: 80%;
   width: 100%;
 
   display: flex;
@@ -172,27 +192,23 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-#panelNavigator *
-{
-  font-size: 4em;
-}
 #panelNavigator div
 {
   width: fit-content;
 }
 #panelLogin
 {
-  height: 30%;
+  height: 20%;
   width: 100%;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
 }
-#panelLogin p
+#panelLogin div *
 {
-  margin: 2vh;
+  font-size: 1.7em;
 }
 /* TOGGLE BUTTON */
 #toggleNavigationButton
@@ -240,12 +256,13 @@ export default {
   height: 13%;
   width: 100%;
 
-  transition-duration: 300ms;
+  transition-duration: 500ms;
 
   background-color: rgb(43, 43, 43);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
   border-radius: 5px;
+  border: 1px solid rgb(43, 43, 43);
 }
 #crossBar1,
 #crossBar2{
@@ -269,7 +286,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  transform: translateY(45%);
+  transform: translateY(43%);
 }
 #crossBar1
 {

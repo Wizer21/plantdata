@@ -23,35 +23,35 @@ export function getPlantList(callback){
   request('GET', `https://localhost/wp-site/wp-json/api/plant`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
-  }) 
+  })
 }
 
 export function getVerifyStack(callback){  
   request('GET', `https://localhost/wp-site/wp-json/api/verifystack`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
-  }) 
+  })
 }
 
 export function getOnePost(callback, id){  
   request('GET', `https://localhost/wp-site/wp-json/api/post/${id}`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
-  }) 
+  })
 }
 
 export function getOnePlant(callback, id){  
   request('GET', `https://localhost/wp-site/wp-json/api/plant/${id}`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
-  }) 
+  })
 }
 
 export function loginOrCreateUser(callback, googleKey, username, imageUrl){  
   request('GET', `https://localhost/wp-site/wp-json/api/user/${googleKey}/${username}?imageurl=${imageUrl}`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
-  }) 
+  })
 }
 
 export function updateUserAddFavorite(userId, plantId){  
@@ -63,11 +63,7 @@ export function updateUserDeleteFavorite(userId, plantId){
 }
 
 export function sendNewPlant(plantData){  
-  console.log(plantData);
   requestObject('https://localhost/wp-site/wp-json/api/newplant', plantData)
-  .then(function (e) {
-    console.log(e);
-  }) 
 }
 
 export function deletePost(postId){  

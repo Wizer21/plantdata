@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     submit(){
-      console.log(this.newPlant);
       if (this.$store.state.logged && this.isPlantReady){
         sendNewPlant(this.newPlant)
       }    

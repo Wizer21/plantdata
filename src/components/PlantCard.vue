@@ -1,26 +1,22 @@
 <template>
-  <div>
-    <router-link :to="url">
-      <div id="cardBody" @click="openPlant">
-        <div id="cardContent">
-          <div id="cardImagePart">
-            <img :src="plant.image"/>
-          </div>
-          <div id="cardTextPart">
-            <p>
-              {{ plant.name }}
-            </p>
-            <p>
-              {{ plant.description }}
-            </p>
-            <p>
-              {{ plant.difficulty }}
-            </p>
-          </div>
-        </div>
+  <router-link :to="url" id="cardBody">
+    <div id="cardContent">
+      <div id="cardImagePart">
+        <img :src="plant.image" id="plantImage"/>
       </div>
-    </router-link>
-  </div>
+      <div id="cardTextPart">
+        <p>
+          {{ plant.name }}
+        </p>
+        <p>
+          {{ plant.description }}
+        </p>
+        <p>
+          {{ plant.difficulty }}
+        </p>
+      </div>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -36,6 +32,10 @@ export default {
     return {
       url: `/plant/${this.plant.id}`
     }
+  },
+  mounted(){
+    const plantImage = document.getElementById('plantImage')
+    console.log(plantImage.clientWidth);
   }
 }
 </script>
@@ -43,14 +43,13 @@ export default {
 <style>
 #cardBody
 {
+  width: 20vh;
   height: 20vh;
-  width: 13vh;
-  margin: 1vh;
 
-  border-radius: 10px;
   cursor: pointer;
 
   overflow: hidden;
+  flex-grow: 1;
 }
 #cardBody:hover #cardContent
 {
