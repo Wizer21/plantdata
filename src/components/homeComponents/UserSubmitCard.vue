@@ -1,5 +1,5 @@
 <template>
-  <div id="userCard">
+  <router-link :to="getUserLink"  id="userCard">    
     <div id="userImage">
       <img :src="user.profileimage">
     </div>
@@ -8,10 +8,10 @@
         {{ user.username }}
       </p>
       <p>
-        {{ user.validatedpublications }} submission
+        {{ user.publications.length }} submission
       </p>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -23,8 +23,10 @@ export default {
       require: true
     }
   },
-  mounted(){
-    console.log(this.user);
+  computed: {
+    getUserLink(){
+      return `/userprofile/${this.user.id}`
+    }
   }
 }
 </script>

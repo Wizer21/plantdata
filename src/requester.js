@@ -33,8 +33,8 @@ export function getVerifyStack(callback){
   })
 }
 
-export function getOnePost(callback, id){  
-  request('GET', `https://localhost/wp-site/wp-json/api/post/${id}`)
+export function getOneUser(callback, id){  
+  request('GET', `https://localhost/wp-site/wp-json/api/user/${id}`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))
   })

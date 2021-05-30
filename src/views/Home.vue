@@ -36,8 +36,8 @@ export default {
       this.userList = this.userList.slice(0, 5)
     },
     sortList(a, b){
-      const aInt = parseInt(a.validatedpublications)
-      const bInt = parseInt(b.validatedpublications)
+      const aInt = parseInt(a.publications.length)
+      const bInt = parseInt(b.publications.length)
 
       if (aInt < bInt){
         return 1
