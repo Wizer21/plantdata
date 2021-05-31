@@ -1,0 +1,15 @@
+{
+  "luminosity": [
+    "Shadow",
+    "Bright without direct light",
+    "Full sun"
+  ],
+  "fogging": [
+    "Never fog",
+    "Fog 2 time a week",
+    "Every other day",
+    "Every day",
+    "Two time a day",
+    "Live underwater"
+  ]
+}

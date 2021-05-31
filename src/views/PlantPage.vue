@@ -21,10 +21,10 @@
           Fogging: {{ plant.fogging }}
         </p>
         <p>
-          Max Height: {{ plant.maxheight }} m
+          Max Height: {{ plant.matureheight }} m
         </p>
         <p>
-          Min heat: {{ plant.minheat }} c°
+          Min heat: {{ plant.requiredheat }} c°
         </p>
         <template v-if="isLogged">
           <p id="likeButton" @click="toggleLike">

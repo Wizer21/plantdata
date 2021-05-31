@@ -5,15 +5,23 @@
     <p>Description</p>  
     <textarea placeholder="What an awesome plant!" id="descriptionInput"></textarea>  
     <p>Difficulty</p>  
-    <input type="text" placeholder="1/2/3" id="difficultyInput">
+    <div id="starsHolder">
+      <div v-for="i in 5" :key="i" class="stars"></div>
+    </div>
     <p>Luminosity</p>  
-    <input type="text" placeholder="Bright, without direct light." id="luminosityInput">
+    <select id="luminosityInput">
+      <option selected disabled hidden></option>
+      <option v-for="value of plantFields.luminosity" :key="value" :value="value">{{ value }}</option>
+    </select>
     <p>Fogging</p>  
-    <input type="text" placeholder="Mist every day" id="foggingInput">
-    <p>Max Height</p>  
-    <input type="text" placeholder="2" id="heightInput">
-    <p>Min heat</p>  
-    <input type="text" placeholder="22" id="heatInput">
+    <select id="foggingInput">
+      <option selected disabled hidden></option>
+      <option v-for="value of plantFields.fogging" :key="value" :value="value">{{ value }}</option>
+    </select>
+    <p>Mature Height</p>  
+    <input type="number" id="heightInput">
+    <p>Required Heat</p>  
+    <input type="number" id="heatInput">
     <p>Plant image</p>    
     <input type="file" accept="image/jpeg" id="imageInput">
     <button @click="submit" id="submitButton">
@@ -44,15 +52,16 @@ export default {
       newPlant: {
         name: "",
         description: "",
-        maxheight: "",
-        minheat: "",
+        matureheight: "",
+        requiredheat: "",
         difficulty: "",
         luminosity: "",
         fogging: "",
         image: "",
         creator: ""
       },
-      isPlantReady: false
+      isPlantReady: false,
+      plantFields: require('../assets/plantValue.json')
     }
   },
   computed: {
@@ -79,7 +88,6 @@ export default {
     const descriptionInput = document.getElementById('descriptionInput')
     const heightInput = document.getElementById('heightInput')
     const heatInput = document.getElementById('heatInput')
-    const difficultyInput = document.getElementById('difficultyInput')
     const luminosityInput = document.getElementById('luminosityInput')
     const foggingInput = document.getElementById('foggingInput')
     const image = document.getElementById('imageInput')
@@ -87,11 +95,20 @@ export default {
 
     const reader  = new FileReader();   
 
-    const dataList = ["name", "description", "maxheight", "minheat", "difficulty", "luminosity", "fogging"]
-    const inputList = [nameInput, descriptionInput, heightInput, heatInput, difficultyInput, luminosityInput, foggingInput]
+    const dataList = ["name", "description"]
+    const inputList = [nameInput, descriptionInput]
     for (let i = 0; i < inputList.length; i++){
       inputList[i].addEventListener('keyup', () => {
         this.newPlant[dataList[i]] = inputList[i].value
+        checkPlantReady()
+      })
+    }
+
+    const comboDataList = ["matureheight", "requiredheat", "luminosity", "fogging"]
+    const comboBoxElements =  [heightInput, heatInput, luminosityInput, foggingInput]
+    for (let i = 0; i < comboBoxElements.length; i++){
+      comboBoxElements[i].addEventListener('change', () => {
+        this.newPlant[comboDataList[i]] = comboBoxElements[i].value
         checkPlantReady()
       })
     }
@@ -122,6 +139,40 @@ export default {
       submitButton.style.color = "green"
       local.isPlantReady = true
     }
+
+    // Stars animation
+    const stars = document.getElementsByClassName('stars')
+    let isMouseHold = false
+    for (let i = 0; i < stars.length; i++){
+      stars[i].addEventListener("mouseenter", () => {
+        if (isMouseHold){
+          updateStars(i)
+        }
+      })
+      stars[i].addEventListener("mousedown", () => {
+        isMouseHold = true
+        updateStars(i)
+      })
+      stars[i].addEventListener("mouseup", () => {
+        isMouseHold = false
+        updateStars(i)
+      })
+    }
+
+    function updateStars(i){      
+      local.newPlant['difficulty'] = i + 1
+      checkPlantReady()     
+
+      for (let e = 0; e < stars.length; e++){
+        if (e <= i){
+          stars[e].style.backgroundColor = "red"
+        }
+        else{
+          stars[e].style.backgroundColor = "pink"
+        }
+      }
+    }
+    updateStars(2)
   }
 }
 </script>
@@ -129,9 +180,8 @@ export default {
 <style>
 #createPlant
 {
-  height: 80vh;
-  width: 80vw;
-  padding: 10vh 15vh;
+  height: 100vh;
+  width: 100vw;
 
   display: flex;
   flex-direction: column;
@@ -151,7 +201,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 #logginButton
 {
@@ -187,5 +236,18 @@ export default {
 #logginButton:hover p
 {
   color: rgb(218, 216, 216);
+}
+#starsHolder
+{
+  display: flex;
+  justify-content: space-between;
+}
+.stars
+{
+  height: 2vh;
+  width: 2vh;
+
+  background-color: red;
+  margin: 1%;
 }
 </style>

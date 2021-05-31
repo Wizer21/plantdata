@@ -39,13 +39,8 @@ export default {
 <style>
 #cardBody
 {
-  width: 20vh;
-  height: 20vh;
-
   cursor: pointer;
-
   overflow: hidden;
-  flex-grow: 1;
 }
 #cardBody:hover #cardContent
 {
@@ -60,7 +55,7 @@ export default {
   display: flex;
   flex-direction: row;
 
-  transition-duration: 500ms;
+  transition: transform 500ms;
   transform: translateX(0%);
 }
 /* image */

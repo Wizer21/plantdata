@@ -9,7 +9,7 @@
   </div>
   <div id="plantList">
     <template v-for='plant of plantList' :key="plant.id">
-      <PlantCard v-if="testSearchInput(plant.name)" :plant="plant"/>
+      <PlantCard class="plantCard" v-if="testSearchInput(plant.name)" :plant="plant"/>
     </template>
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
 {
   display: flex;  
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 #plantSearchPanel
 {
@@ -90,5 +90,10 @@ export default {
 
   font-size: 1.2em;
   white-space: nowrap;
+}
+.plantCard
+{
+  height: 20vw;
+  width: 20vw;
 }
 </style>

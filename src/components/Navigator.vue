@@ -199,11 +199,14 @@ export default {
 {
   height: 20%;
   width: 100%;
+  
+  background-color: rgb(165, 165, 165);
 
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
+  z-index: -1;
 }
 #panelLogin div *
 {

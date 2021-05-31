@@ -17,10 +17,10 @@
         Fogging: {{ plant.fogging }}
       </p>
       <p>
-        Max Height: {{ plant.maxheight }} m
+        Mature Height: {{ plant.matureheight }} m
       </p>
       <p>
-        Min heat: {{ plant.minheat }} c°
+        Required Heat: {{ plant.requiredheat }} c°
       </p>
     </div>
     <div id="verifyImageContainer">

@@ -64,6 +64,7 @@ export function updateUserDeleteFavorite(userId, plantId){
 
 export function sendNewPlant(plantData){  
   requestObject('https://localhost/wp-site/wp-json/api/newplant', plantData)
+  console.log(plantData)
 }
 
 export function deletePost(postId){  
