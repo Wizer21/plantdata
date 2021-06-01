@@ -1,29 +1,60 @@
 <template>
   <div id="createPlant" v-if="isLogged">
-    <p>Name</p>  
-    <input type="text" placeholder="Name" id="nameInput">
-    <p>Description</p>  
-    <textarea placeholder="What an awesome plant!" id="descriptionInput"></textarea>  
-    <p>Difficulty</p>  
-    <div id="starsHolder">
-      <div v-for="i in 5" :key="i" class="stars"></div>
+    <h1>
+      Share a new plant
+    </h1>
+    <div id="newPlantDataHolder">      
+      <h2>
+        Plant informations
+      </h2>
+      <div class="dataRow">
+        <label for="nameInput">Name</label>  
+        <input class="isRight" type="text" placeholder="Name" id="nameInput">
+      </div>
+      <div class="dataRow">
+        <label for="descriptionInput">Description</label>  
+        <textarea class="isRight" placeholder="What an awesome plant!" id="descriptionInput"></textarea>  
+      </div>
+      <div class="dataRow">
+        <label for="starsHolder" >Difficulty</label>  
+        <div id="starsHolder" class="isRight">
+          <div v-for="i in 5" :key="i" class="stars"></div>
+        </div>
+      </div>
+      <div class="dataRow">
+        <label for="luminosityInput" >Luminosity</label>  
+        <select id="luminosityInput" class="isRight">
+          <option selected disabled hidden></option>
+          <option v-for="value of plantFields.luminosity" :key="value" :value="value">{{ value }}</option>
+        </select>
+      </div>
+      <div class="dataRow">
+        <label for="foggingInput" >Fogging</label>  
+        <select id="foggingInput" class="isRight">
+          <option selected disabled hidden></option>
+          <option v-for="value of plantFields.fogging" :key="value" :value="value">{{ value }}</option>
+        </select>
+      </div>
+      <div class="dataRow" >
+        <label for="heightInput" >Mature Height</label>  
+        <input type="number" id="heightInput" class="isRight">
+      </div>
+      <div class="dataRow">
+        <label for="heatInput" >Required Heat</label>  
+        <input type="number" id="heatInput" class="isRight">
+      </div>
     </div>
-    <p>Luminosity</p>  
-    <select id="luminosityInput">
-      <option selected disabled hidden></option>
-      <option v-for="value of plantFields.luminosity" :key="value" :value="value">{{ value }}</option>
-    </select>
-    <p>Fogging</p>  
-    <select id="foggingInput">
-      <option selected disabled hidden></option>
-      <option v-for="value of plantFields.fogging" :key="value" :value="value">{{ value }}</option>
-    </select>
-    <p>Mature Height</p>  
-    <input type="number" id="heightInput">
-    <p>Required Heat</p>  
-    <input type="number" id="heatInput">
-    <p>Plant image</p>    
-    <input type="file" accept="image/jpeg" id="imageInput">
+    <div id="imageFieldHolder">
+      <h2>
+        Plant image
+      </h2> 
+      <label for="imageInput">
+        <div id="plantImageHolder">
+          <img :src="image">
+        </div>
+      </label>
+      <input type="file" accept="image/jpeg" id="imageInput" >  
+    </div>
     <button @click="submit" id="submitButton">
       Submit  
     </button>
@@ -61,7 +92,8 @@ export default {
         creator: ""
       },
       isPlantReady: false,
-      plantFields: require('../assets/plantValue.json')
+      plantFields: require('../assets/plantValue.json'),
+      image: require('../assets/noImage.png')
     }
   },
   computed: {
@@ -120,6 +152,8 @@ export default {
       }
       reader.onloadend = function () {
         local.newPlant.image = reader.result
+        local.image = reader.result
+        console.log(local.image);
         checkPlantReady()     
       }   
     })
@@ -180,7 +214,6 @@ export default {
 <style>
 #createPlant
 {
-  height: 100vh;
   width: 100vw;
 
   display: flex;
@@ -237,10 +270,41 @@ export default {
 {
   color: rgb(218, 216, 216);
 }
+/* Parts Holders */
+#imageFieldHolder,
+#newPlantDataHolder
+{
+  width: 80%;
+  background-color: #f0f0f0;
+  padding: 5%;
+  margin: 2% 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+.dataRow
+{  
+  margin: 1% 0;
+  display: flex;
+  flex-direction: row;
+}
+.dataRow label
+{
+  position: absolute;
+  margin: 0;
+}
+.isRight
+{
+  margin-left: 20%;
+  width: 100%;
+}
+/* Stars */
 #starsHolder
 {
   display: flex;
   justify-content: space-between;
+  width: min-content;
 }
 .stars
 {
@@ -249,5 +313,22 @@ export default {
 
   background-color: red;
   margin: 1%;
+}
+#imageInput
+{
+  display: none;
+}
+/*  Image Part */
+#plantImageHolder
+{
+  cursor: pointer;
+  height: 30vh;
+  width: 30vh;
+}
+#plantImageHolder img
+{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 </style>
