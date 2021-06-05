@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import { deletePost, acceptPlant } from '../requester.js'
 
 export default {

@@ -255,7 +255,7 @@ export default {
 #menuBar3
 {
   position: relative;
-  height: 13%;
+  height: 12%;
   width: 100%;
 
   transition-duration: 500ms;
@@ -263,8 +263,7 @@ export default {
   background-color: rgb(43, 43, 43);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
-  border-radius: 5px;
-  border: 1px solid rgb(43, 43, 43);
+  border-radius: 4px;
 }
 #crossBar1,
 #crossBar2{

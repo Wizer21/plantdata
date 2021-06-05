@@ -1,19 +1,19 @@
 <template>
   <div id="createPlant" v-if="isLogged">
-    <h1>
+    <h1 id="mainTitle">
       Share a new plant
     </h1>
     <div id="newPlantDataHolder">      
-      <h2>
+      <h2 class="subTitle">
         Plant informations
       </h2>
       <div class="dataRow">
         <label for="nameInput">Name</label>  
-        <input class="isRight" type="text" placeholder="Name" id="nameInput">
+        <input class="isRight isField" type="text" placeholder="Name" id="nameInput">
       </div>
       <div class="dataRow">
         <label for="descriptionInput">Description</label>  
-        <textarea class="isRight" placeholder="What an awesome plant!" id="descriptionInput"></textarea>  
+        <textarea class="isRight isField" placeholder="What an awesome plant!" id="descriptionInput"></textarea>  
       </div>
       <div class="dataRow">
         <label for="starsHolder" >Difficulty</label>  
@@ -23,29 +23,29 @@
       </div>
       <div class="dataRow">
         <label for="luminosityInput" >Luminosity</label>  
-        <select id="luminosityInput" class="isRight">
+        <select id="luminosityInput" class="isRight isField">
           <option selected disabled hidden></option>
           <option v-for="value of plantFields.luminosity" :key="value" :value="value">{{ value }}</option>
         </select>
       </div>
       <div class="dataRow">
         <label for="foggingInput" >Fogging</label>  
-        <select id="foggingInput" class="isRight">
+        <select id="foggingInput" class="isRight isField">
           <option selected disabled hidden></option>
           <option v-for="value of plantFields.fogging" :key="value" :value="value">{{ value }}</option>
         </select>
       </div>
       <div class="dataRow" >
         <label for="heightInput" >Mature Height</label>  
-        <input type="number" id="heightInput" class="isRight">
+        <input type="number" id="heightInput" class="isRight isField" placeholder="0">
       </div>
       <div class="dataRow">
         <label for="heatInput" >Required Heat</label>  
-        <input type="number" id="heatInput" class="isRight">
+        <input type="number" id="heatInput" class="isRight isField" placeholder="0">
       </div>
     </div>
     <div id="imageFieldHolder">
-      <h2>
+      <h2 class="subTitle">
         Plant image
       </h2> 
       <label for="imageInput">
@@ -153,7 +153,6 @@ export default {
       reader.onloadend = function () {
         local.newPlant.image = reader.result
         local.image = reader.result
-        console.log(local.image);
         checkPlantReady()     
       }   
     })
@@ -162,7 +161,7 @@ export default {
       for(let data in local.newPlant){
         if(local.newPlant[data] == ""){
           submitButton.style.cursor = "unset"
-          submitButton.style.color = "red"
+          submitButton.style.opacity = "0.5"
 
           local.isPlantReady = false
           return
@@ -170,7 +169,7 @@ export default {
       }
       
       submitButton.style.cursor = "pointer"
-      submitButton.style.color = "green"
+      submitButton.style.opacity = "1"
       local.isPlantReady = true
     }
 
@@ -187,11 +186,10 @@ export default {
         isMouseHold = true
         updateStars(i)
       })
-      stars[i].addEventListener("mouseup", () => {
-        isMouseHold = false
-        updateStars(i)
-      })
     }
+    document.addEventListener("mouseup", () => {
+      isMouseHold = false
+    })
 
     function updateStars(i){      
       local.newPlant['difficulty'] = i + 1
@@ -199,10 +197,10 @@ export default {
 
       for (let e = 0; e < stars.length; e++){
         if (e <= i){
-          stars[e].style.backgroundColor = "red"
+          stars[e].style.backgroundColor = "#f5dc02"
         }
         else{
-          stars[e].style.backgroundColor = "pink"
+          stars[e].style.backgroundColor = "#d1d1d1"
         }
       }
     }
@@ -211,7 +209,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #createPlant
 {
   width: 100vw;
@@ -283,11 +281,17 @@ export default {
   flex-direction: column;
   align-items: left;
 }
+#imageFieldHolder
+{
+  width: min-content;
+}
 .dataRow
 {  
   margin: 1% 0;
+
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .dataRow label
 {
@@ -305,14 +309,25 @@ export default {
   display: flex;
   justify-content: space-between;
   width: min-content;
+
+  cursor: pointer;
 }
 .stars
 {
-  height: 2vh;
-  width: 2vh;
+  height: 3vh;
+  width: 3vh;
 
-  background-color: red;
   margin: 1%;
+
+  transition-duration: 200ms;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+
+  user-drag: none; 
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 #imageInput
 {
@@ -324,11 +339,52 @@ export default {
   cursor: pointer;
   height: 30vh;
   width: 30vh;
+  transition-duration: 300ms;
+}
+#plantImageHolder:hover
+{
+  transform: translateY(-2%) scale(1.02);
 }
 #plantImageHolder img
 {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+#submitButton
+{
+  margin: 5vh 0;
+  font-size: 2em;
+  padding: 2vh 3vh;
+
+  transition-duration: 500ms;
+
+  color: rgb(43, 43, 43);
+  border: 1px solid rgb(43, 43, 43);
+  border-radius: 4px;
+}
+.isField
+{
+  border: 1px solid rgb(43, 43, 43);
+  padding: 1%;
+  background-color: white;
+  border-radius: 4px;
+  transition-duration: 500ms; 
+
+  outline: none;
+}
+.isField:focus
+{
+  padding: 2%;
+}
+#mainTitle
+{
+  font-size: 3.5em;
+}
+.subTitle
+{
+  font-size: 2em;
+  text-align: center;
+  margin-top: 0;
 }
 </style>

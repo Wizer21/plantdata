@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import { getVerifyStack } from '../requester.js'
 import VerifyCard from '../components/VerifyCard.vue'
 
