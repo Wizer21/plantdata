@@ -5,42 +5,62 @@
         <img :src="plant.image">
       </div>
       <div id="plantTextHolder">
-        <p id="plantName">
-          {{ plant.name }}
-        </p>
+        <div id="titleAndFav">
+          <p id="plantName">
+            {{ plant.name }}
+          </p>          
+          <div id="favHolder" v-on="isLogged ? {click: toggleLike} : {}" :class="isLogged ? clickable : ''">
+            {{ plant.likes }}       
+            <div id="favIconHolder">
+              <img :src="isFav" >
+            </div>   
+          </div>
+        </div>
         <p>
           {{ plant.description }}
         </p>
-        <p>
-          {{ plant.difficulty }}
-        </p>
-        <p>
-          {{ plant.luminosity }}
-        </p>
-        <p>
-          Fog {{ plant.fogging }}
-        </p>
-        <p>
-          Maximum {{ plant.matureheight }} m
-        </p>
-        <p>
-          Min {{ plant.requiredheat }} c°
-        </p>
-        <template v-if="isLogged">
-          <p id="likeButton" @click="toggleLike">
-            <template v-if="isLiked">
-              Likes: {{ plant.likes }} liked
-            </template>
-            <template v-else>
-              Likes: {{ plant.likes }} Not liked
-            </template>
-          </p>
-        </template>
-        <template v-else>
-          <p>
-            Likes: {{ plant.likes }}
-          </p>
-        </template>
+        <div id="plantDataHolder">
+          <div class="plantSubLine">
+            <p class="plantSubLineTitle">
+              Difficulty
+            </p>
+            <p class="plantSubLineData">
+              {{ plant.difficulty }}
+            </p>
+          </div>
+          <div class="plantSubLine">
+            <p class="plantSubLineTitle">
+              Luminosity
+            </p>
+            <p class="plantSubLineData">
+              {{ plant.luminosity }}
+            </p>
+          </div>
+          <div class="plantSubLine">
+            <p class="plantSubLineTitle">
+              Fogging
+            </p>
+            <p class="plantSubLineData">
+              {{ plant.fogging }}
+            </p>
+          </div>
+          <div class="plantSubLine">
+            <p class="plantSubLineTitle">
+              Mature height
+            </p>
+            <p class="plantSubLineData">
+              {{ plant.matureheight }} m
+            </p>
+          </div>
+          <div class="plantSubLine">
+            <p class="plantSubLineTitle">
+              Required heat
+            </p>
+            <p class="plantSubLineData">
+              {{ plant.requiredheat }} c°
+            </p>
+          </div>
+        </div>
         <router-link :to="userPageLink" class="navigationButton">Posted by {{ plant.user.username }}</router-link>
       </div>
     </template>
@@ -59,25 +79,36 @@ export default {
     }
   },
   computed: {
+    userPageLink(){
+      return `/userprofile/${this.plant.user.id}`
+    },
     isLogged(){
       return this.$store.state.logged
     },
-    userPageLink(){
-      return `/userprofile/${this.plant.user.id}`
+    isFav(){
+      if (this.isLiked)
+      {
+        return require('../assets/icons/heart.png')
+      }
+      else{
+        return require('../assets/icons/heart-outline (1).png')
+      }
     }
   },
   methods: {
     applyPlant(plant){
       this.plant = plant
-
-      console.log(this.plant);
       
       // If logged -> Check if is liked
+      console.log(this.$store.state.user);
       if(this.$store.state.logged){
         this.isLiked = this.$store.state.user.favorites.includes(this.plant.id)
       }
+      console.log(this.isLiked);
     },
     toggleLike(){
+      console.log(this.$store.state.user)
+
       if (this.isLiked){
         this.isLiked = false
         this.plant.likes -= 1
@@ -94,12 +125,12 @@ export default {
       }
       else{
         this.isLiked = true
-        this.plant.likes += 1
+        this.plant.likes = parseInt(this.plant.likes) + 1
 
         this.$store.state.user.favorites.push(this.plant.id)
         updateUserAddFavorite(this.$store.state.user.id, this.plant.id)
       }   
-      console.log(this.$store.state.user.favorites)
+      console.log(this.$store.state.user)
     }
   },
   mounted(){
@@ -144,6 +175,59 @@ export default {
 #plantName
 {
   font-size: 2em;
+  margin: 0;
+  width: min-content;
+}
+/* Fav */
+.clickable
+{
+  cursor: pointer;
+}
+#favIconHolder
+{
+  height: 5vh;
+  width: 5vh;
+}
+#favIconHolder img
+{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+#favHolder
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#titleAndFav
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/* Plant Data */
+#plantDataHolder
+{
+  border: 1px solid black;
+  padding: 5%;
+  border-radius: 4px;
+}
+.plantSubLine
+{
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+}
+.plantSubLineTitle
+{
+  opacity: 0.7;
+  width: 50%;
+}
+.plantSubLineData
+{
+  text-align: right;
 }
 @media screen and (max-width: 800px) {  
   #plantPage
