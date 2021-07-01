@@ -70,7 +70,7 @@ export default {
 #verifyCard
 {
   border: 1px solid black;
-  margin: 10%;
+  margin: 5% 10%;
   padding: 5%;
 
   max-height: 50vh;

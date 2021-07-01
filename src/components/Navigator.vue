@@ -123,7 +123,7 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 2;
+  z-index: 10;
 
   pointer-events: none;
 }

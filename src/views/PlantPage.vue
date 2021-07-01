@@ -5,26 +5,26 @@
         <img :src="plant.image">
       </div>
       <div id="plantTextHolder">
-        <p>
+        <p id="plantName">
           {{ plant.name }}
         </p>
         <p>
           {{ plant.description }}
         </p>
         <p>
-          Difficulty: {{ plant.difficulty }}
+          {{ plant.difficulty }}
         </p>
         <p>
-          Luminosity: {{ plant.luminosity }}
+          {{ plant.luminosity }}
         </p>
         <p>
-          Fogging: {{ plant.fogging }}
+          Fog {{ plant.fogging }}
         </p>
         <p>
-          Max Height: {{ plant.matureheight }} m
+          Maximum {{ plant.matureheight }} m
         </p>
         <p>
-          Min heat: {{ plant.requiredheat }} c°
+          Min {{ plant.requiredheat }} c°
         </p>
         <template v-if="isLogged">
           <p id="likeButton" @click="toggleLike">
@@ -140,6 +140,10 @@ export default {
 {
   color: rgb(238, 49, 49);
   cursor: pointer;
+}
+#plantName
+{
+  font-size: 2em;
 }
 @media screen and (max-width: 800px) {  
   #plantPage

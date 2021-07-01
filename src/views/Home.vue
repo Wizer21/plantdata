@@ -27,12 +27,27 @@
       </div>
       <div id="panelsHolder">
         <div id="plantzPanel">  
-          plant
+          <div id="topPlantContent">
+            <p class="plantText">
+              Where plants addicts discover 
+            </p>
+            <div id="plantImageOneHolder">
+              <img :src="require('../assets/Home/home.jpg')" alt="plant house">
+            </div>
+          </div>
+          <div id="botPlantContent">
+            <div id="plantImageTwoHolder">
+              <img :src="require('../assets/Home/plant.jpeg')" alt="plant house">
+            </div>
+            <p class="plantText">
+              {{ plantsCount }} available plants
+            </p>
+          </div>
         </div>
-        <div id="userPanel">
-          <UserSubmitCard v-for="user of userList" :key="user.id" :user="user"/>
+        <div id="userPanel" >
+          <UserSubmitCard class="homeUserCard" v-for="user of userList" :key="user.id" :user="user"/>
         </div>
-        <div id="toFavorite">
+        <div id="favoritePanel">
           fav
         </div>
       </div>
@@ -80,24 +95,28 @@ export default {
     toPlantz(){      
       this.openElem(document.getElementById('plantzButtonBackground'), document.getElementById('plantzPanel'))
       this.closeElem(document.getElementById('userButtonBackground'), document.getElementById('userPanel'))
-      this.closeElem(document.getElementById('favButtonBackground'), document.getElementById('toFavorite'))
+      this.closeElem(document.getElementById('favButtonBackground'), document.getElementById('favoritePanel'))
     },
     toUsers(){
       this.closeElem(document.getElementById('plantzButtonBackground'), document.getElementById('plantzPanel'))
       this.openElem(document.getElementById('userButtonBackground'), document.getElementById('userPanel'))
-      this.closeElem(document.getElementById('favButtonBackground'), document.getElementById('toFavorite'))
+      this.closeElem(document.getElementById('favButtonBackground'), document.getElementById('favoritePanel'))
     },
     toFavorite(){
       this.closeElem(document.getElementById('plantzButtonBackground'), document.getElementById('plantzPanel'))
       this.closeElem(document.getElementById('userButtonBackground'), document.getElementById('userPanel'))
-      this.openElem(document.getElementById('favButtonBackground'), document.getElementById('toFavorite'))
+      this.openElem(document.getElementById('favButtonBackground'), document.getElementById('favoritePanel'))
     },
     openElem(button, panel) {
       button.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
+
+      panel.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
       panel.style.width = "100%"
     },
     closeElem(button, panel){
       button.style.clipPath = "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)"
+
+      panel.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
       panel.style.width = "0%"
     }
   },
@@ -122,7 +141,7 @@ export default {
 #home h1
 {
   font-size: 5em;
-  margin: 5%;
+  margin: 3vh;
   margin-left: 20%
 }
 #holdersHodler
@@ -154,7 +173,7 @@ export default {
 {
   position: absolute;
   height: min-content;
-  transform: rotate(-90deg) translateX(50%);
+  transform: rotate(-90deg) translateX(120%);
   margin: 0;
   font-size: 2em;
   cursor: pointer;
@@ -164,12 +183,10 @@ export default {
   width: 2em;
   bottom: 0;
   white-space: nowrap;
-
-  border-bottom: 1px solid black;
 }
 .oneButtonHolder:hover p 
 {
-  transform: rotate(-90deg) translateX(70%);
+  transform: rotate(-90deg) translateX(140%);
 }
 #plantzButtonBackground,
 #userButtonBackground,
@@ -179,34 +196,90 @@ export default {
   height: 100%;
   background-color: rgb(59, 59, 59, 0.4);
 
-  transition-duration: 500ms;
+  transition-duration: 1000ms;
 }
 /* Hodlers */
 #panelsHolder
 {
   width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: row;
 }
-#panelsHolder div
+#plantzPanel,
+#userPanel,
+#favoritePanel
 {
   width: 0%;
-  height: 100%;
+  height: 75vh;
   transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 #plantzPanel
 {
-  background-color: red;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
 }
 #userPanel
 {
-  background-color: blue;
+  background-color: rgb(194, 194, 194);
 }
-#toFavorite
+#favoritePanel
 {
   background-color: green;
+}
+/* Plant Panel */
+#plantImageOneHolder,
+#plantImageTwoHolder
+{  
+  height: 100%;
+  width: 50%;
+}
+#plantImageTwoHolder img,
+#plantImageOneHolder img
+{
+  height: 100%;
+  width: 100%;
+
+  object-fit: contain;
+}
+#topPlantContent
+{
+  width: 100%;
+  height: 50%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.plantText
+{
+  margin: 2vh;
+  font-size: 4vw;
+
+  flex-wrap: nowrap;
+  height: min-content;
+}
+#botPlantContent
+{
+  height: 50%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+/* User Panel */
+#userPanel
+{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
