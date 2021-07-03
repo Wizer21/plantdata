@@ -1,8 +1,10 @@
 <template>
   <div v-if="isAdmin">
-    Admin
     <div id="verifyList">
-      <VerifyCard v-for="plant of verifyStack" :key="plant.id" :plant="plant"/>
+      <p v-if="isListEmpty" id="noPostMessage">
+        No pending posts
+      </p>
+      <VerifyCard v-else v-for="plant of verifyStack" :key="plant.id" :plant="plant" @archived="archivedPlant"/>
     </div>
   </div>
   <div v-else id="notAdminPage">
@@ -27,11 +29,28 @@ export default {
   computed: {
     isAdmin(){
       return this.$store.state.admin
+    },
+    isListEmpty(){      
+      if (!this.verifyStack || Object.keys(this.verifyStack).length < 1 ){
+        return true
+      }
+      else{
+        return false
+      }
     }
   },
   methods: {
     applyStack(response){
       this.verifyStack = response
+    },
+    archivedPlant(id){
+      const size = Object.keys(this.verifyStack).length
+      for (let i = 0; i < size; i++){
+        if (this.verifyStack[i].id == id){
+          this.verifyStack.splice(i, 1)          
+          return
+        }
+      }
     }
   },
   mounted(){
@@ -43,6 +62,7 @@ export default {
 <style>
 #verifyList
 {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,5 +78,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#noPostMessage
+{
+  text-align: center;
+  font-size: 5vw;
 }
 </style>

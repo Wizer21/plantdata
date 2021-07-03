@@ -61,7 +61,7 @@
             </p>
           </div>
         </div>
-        <router-link :to="userPageLink" class="navigationButton">Posted by {{ plant.user.username }}</router-link>
+        <router-link :to="userPageLink" id="postedByButton" class="navigationButton">Posted by {{ plant.user.username }}</router-link>
       </div>
     </template>
   </div>
@@ -155,6 +155,12 @@ export default {
   
   height: 100%;
   width: 40%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  overflow: auto;
 }
 #likeButton
 {
@@ -166,6 +172,11 @@ export default {
   font-size: 2em;
   margin: 0;
   width: min-content;
+}
+#postedByButton
+{
+  font-size: 0.7;
+  text-align: right;
 }
 /* Fav */
 .clickable

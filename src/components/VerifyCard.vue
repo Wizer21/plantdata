@@ -57,10 +57,14 @@ export default {
     deletePlant(){
       deletePost(this.plant.id)
       this.isDone = true
+
+      this.$emit('archived', this.plant.id)
     },
     addPlant(){
       acceptPlant(this.plant.id)
       this.isDone = true
+
+      this.$emit('archived', this.plant.id)
     }
   }
 }
@@ -70,8 +74,8 @@ export default {
 #verifyCard
 {
   border: 1px solid black;
-  margin: 5% 10%;
-  padding: 5%;
+  margin: 2% 10%;
+  padding: 2%;
 
   max-height: 50vh;
 

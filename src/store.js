@@ -11,8 +11,6 @@ const store = createStore({
     },
     mutations: {
       login(state, payload) {
-        console.log("Update", payload);
-
         state.logged = true
         state.user = payload.user
         

@@ -31,7 +31,6 @@ export function getPlantList(callback){
 export function getVerifyStack(callback){  
   request('GET', `${url}/wp-json/api/verifystack`)
   .then(function (e) {
-    console.log(e);
     callback(JSON.parse(e.target.response))
   })
 }
