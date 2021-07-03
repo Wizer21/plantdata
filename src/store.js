@@ -1,10 +1,5 @@
 import { createStore } from 'vuex'
-import VuexPersist from 'vuex-persist'
-
-const vuexPersist = new VuexPersist({
-  key: 'my-app',
-  storage: window.sessionStorage
-})
+import createPersistedState from "vuex-persistedstate";
 
 const store = createStore({
     state () {
@@ -16,6 +11,8 @@ const store = createStore({
     },
     mutations: {
       login(state, payload) {
+        console.log("Update", payload);
+
         state.logged = true
         state.user = payload.user
         
@@ -28,10 +25,13 @@ const store = createStore({
       },
       logout(state) {       
         state.logged = false
-        state.admin = false     
-        state.user = null   
+        state.admin = false
+        state.user = null
       }
     },    
-    plugins: [vuexPersist.plugin],
+    plugins: [createPersistedState({      
+      key: 'my-app',
+      storage: window.sessionStorage
+    })],
   })
 export default store

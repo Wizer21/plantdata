@@ -43,6 +43,13 @@ export function getOneUser(callback, id){
   })
 }
 
+export function refreshUser(callback, id){  
+  request('GET', `${url}/wp-json/api/refreshuser/${id}`)
+  .then(function (e) {
+    callback(JSON.parse(e.target.response))
+  })
+}
+
 export function getOnePlant(callback, id){  
   request('GET', `${url}/wp-json/api/plant/${id}`)
   .then(function (e) {

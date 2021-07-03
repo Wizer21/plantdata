@@ -9,7 +9,7 @@
           <p id="plantName">
             {{ plant.name }}
           </p>          
-          <div id="favHolder" v-on="isLogged ? {click: toggleLike} : {}" :class="isLogged ? clickable : ''">
+          <div id="favHolder" v-on="isLogged ? {click: toggleLike} : {}" :class="isLogged ? 'clickable' : ''">
             {{ plant.likes }}       
             <div id="favIconHolder">
               <img :src="isFav" >
@@ -75,7 +75,6 @@ export default {
   data(){
     return{
       plant: null,
-      isLiked: false
     }
   },
   computed: {
@@ -90,47 +89,37 @@ export default {
       {
         return require('../assets/icons/heart.png')
       }
-      else{
-        return require('../assets/icons/heart-outline (1).png')
-      }
+      return require('../assets/icons/heart-outline (1).png')
+    },
+    isLiked(){
+      return this.$store.state.user.favorites.includes(this.plant.id)
     }
   },
   methods: {
     applyPlant(plant){
       this.plant = plant
-      
-      // If logged -> Check if is liked
-      console.log(this.$store.state.user);
-      if(this.$store.state.logged){
-        this.isLiked = this.$store.state.user.favorites.includes(this.plant.id)
-      }
-      console.log(this.isLiked);
+      this.plant.likes = parseInt(this.plant.likes)
     },
     toggleLike(){
-      console.log(this.$store.state.user)
-
       if (this.isLiked){
-        this.isLiked = false
         this.plant.likes -= 1
         
         // Search and remove the plant from favorite list
         const array = this.$store.state.user.favorites
         for( var i = 0; i < array.length; i++){     
-          if ( array[i] === this.plant.id) {     
+          if ( array[i] === this.plant.id) {   
+            console.log(this.plant.id);  
             this.$store.state.user.favorites.splice(i, 1)
           }        
         }
-
         updateUserDeleteFavorite(this.$store.state.user.id, this.plant.id)
       }
       else{
-        this.isLiked = true
-        this.plant.likes = parseInt(this.plant.likes) + 1
+        this.plant.likes += 1
 
         this.$store.state.user.favorites.push(this.plant.id)
         updateUserAddFavorite(this.$store.state.user.id, this.plant.id)
       }   
-      console.log(this.$store.state.user)
     }
   },
   mounted(){
