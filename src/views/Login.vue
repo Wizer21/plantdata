@@ -2,7 +2,7 @@
   <div id="loginPage">
     <h2 id="loginTitle">Plantz</h2>
     <div id="googleButton" class="g-signin2" data-onsuccess="onSignIn" ></div>
-    <div v-if="checkIsLogged" id="loggedUserPanel" class="fadeElement">
+    <div v-if="checkIsLogged" id="loggedUserPanel">
       <p>
         {{ userUsername }}
       </p>
@@ -56,6 +56,8 @@ export default {
 #loginTitle
 {
   font-size: 5em;
+
+  transition-duration: 5000ms;
 }
 #loginPage
 {
@@ -71,9 +73,6 @@ export default {
 {
   position: relative;
   z-index: 0;
-}
-.fadeElement {
-  animation: fadeElement 4s;
 }
 #logoutButton
 {
@@ -98,16 +97,5 @@ export default {
   border-radius: 4px;
 
   border: 1px solid black;
-}
-
-@keyframes fadeElement {
-  0%{
-    opacity: 0;
-    height: 0em;
-  }
-  100%{
-    opacity: 1;
-    height: 1em;
-  }
 }
 </style>

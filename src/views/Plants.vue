@@ -5,7 +5,7 @@
         Create Plant
       </p>
     </router-link>
-    <input id="searchBar" type="text" :oninput="updateSearchInput">    
+    <input id="searchBar" type="text" placeholder="search" :oninput="updateSearchInput">    
   </div>
   <div id="plantList">
     <template v-for='plant of plantList' :key="plant.id">

@@ -19,14 +19,13 @@
         <p>
           {{ plant.description }}
         </p>
+        
         <div id="plantDataHolder">
           <div class="plantSubLine">
             <p class="plantSubLineTitle">
               Difficulty
             </p>
-            <p class="plantSubLineData">
-              {{ plant.difficulty }}
-            </p>
+            <StarCount :level="parseInt(plant.difficulty)" />
           </div>
           <div class="plantSubLine">
             <p class="plantSubLineTitle">
@@ -69,9 +68,11 @@
 
 <script>
 import { getOnePlant, updateUserAddFavorite, updateUserDeleteFavorite } from '../requester.js'
+import StarCount from '../components/StarCount.vue'
 
 export default {
   name: 'PlantPage',
+  components: { StarCount },
   data(){
     return{
       plant: null,
@@ -89,10 +90,15 @@ export default {
       {
         return require('../assets/icons/heart.png')
       }
-      return require('../assets/icons/heart-outline (1).png')
+      return require('../assets/icons/heart-outline.png')
     },
     isLiked(){
-      return this.$store.state.user.favorites.includes(this.plant.id)
+      if(this.$store.state.logged){
+        return this.$store.state.user.favorites.includes(this.plant.id)
+      }
+      else{
+        return true
+      }
     }
   },
   methods: {
@@ -108,7 +114,6 @@ export default {
         const array = this.$store.state.user.favorites
         for( var i = 0; i < array.length; i++){     
           if ( array[i] === this.plant.id) {   
-            console.log(this.plant.id);  
             this.$store.state.user.favorites.splice(i, 1)
           }        
         }
@@ -205,6 +210,8 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  flex-wrap: wrap;
 }
 /* Plant Data */
 #plantDataHolder

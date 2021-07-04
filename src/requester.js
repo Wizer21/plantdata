@@ -57,7 +57,6 @@ export function getOnePlant(callback, id){
 }
 
 export function loginOrCreateUser(callback, googleKey, username, imageUrl){  
-  console.log(`${url}/wp-json/api/user/${googleKey}/${username}?imageurl=${imageUrl}`);
   request('GET', `${url}/wp-json/api/user/${googleKey}/${username}?imageurl=${imageUrl}`)
   .then(function (e) {
     callback(JSON.parse(e.target.response))

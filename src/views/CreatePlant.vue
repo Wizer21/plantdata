@@ -197,7 +197,7 @@ export default {
 
       for (let e = 0; e < stars.length; e++){
         if (e <= i){
-          stars[e].style.backgroundColor = "#f5dc02"
+          stars[e].style.backgroundColor = "#e9ab37"
         }
         else{
           stars[e].style.backgroundColor = "#d1d1d1"
@@ -304,30 +304,6 @@ export default {
   width: 100%;
 }
 /* Stars */
-#starsHolder
-{
-  display: flex;
-  justify-content: space-between;
-  width: min-content;
-}
-.stars
-{
-  height: 3vh;
-  width: 3vh;
-
-  margin: 1%;
-  cursor: pointer;
-
-  transition-duration: 200ms;
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-
-  user-drag: none; 
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
 #imageInput
 {
   display: none;

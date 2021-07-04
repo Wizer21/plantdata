@@ -5,23 +5,21 @@
         <img :src="plant.image" id="plantImage"/>
       </div>
       <div id="cardTextPart">
-        <p>
+        <p id="plantCardTitle">
           {{ plant.name }}
         </p>
-        <p>
-          {{ plant.description }}
-        </p>
-        <p>
-          {{ plant.difficulty }}
-        </p>
+        <StarCount :level="parseInt(plant.difficulty)" />
       </div>
     </div>
   </router-link>
 </template>
 
 <script>
+import StarCount from './StarCount.vue'
+
 export default {
   name: 'PlantCart',
+  components: { StarCount },
   props: {
     plant: {
       type: Object,
@@ -78,5 +76,9 @@ export default {
   padding: 5%;
   
   font-size: 80%;
+}
+#plantCardTitle
+{
+  font-size: 1.5em;
 }
 </style>
